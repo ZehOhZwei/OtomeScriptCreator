@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
-
+using System.Text.Json;
 namespace OtomeGameScriptCreator.Pages
 {
     public class IndexBase: ComponentBase
@@ -21,6 +21,8 @@ namespace OtomeGameScriptCreator.Pages
 		public int[] choiceNextPanels = new int[3];
 		public int[] choicePoints = new int[3];
 
+		public string fileName = "name";
+
 		public List<Panel> panels = new List<Panel>();
 
 		public void AddTextPanel()
@@ -29,6 +31,7 @@ namespace OtomeGameScriptCreator.Pages
 			newPanel.panelNumber = currentPanel;
 			currentPanel++;
 			panels.Add(newPanel);
+
 		}
 
 		public void AddChoicePanel()
@@ -45,6 +48,14 @@ namespace OtomeGameScriptCreator.Pages
 			newPanel.panelNumber = currentPanel;
 			currentPanel++;
 			panels.Add(newPanel);
+		}
+
+		public void CreateScript()
+		{
+			var jsonString = JsonSerializer.Serialize(panels);
+			string path = @"C:\MyTest.txt";
+			File.WriteAllText(path, jsonString);
+
 		}
     }
     

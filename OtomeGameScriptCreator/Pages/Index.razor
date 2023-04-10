@@ -23,6 +23,7 @@
 		<option value="2">2</option>
 	</select>
 	<br />
+
 	@if (characterNumber >= 1)
 	{
 		<label>Character</label>
@@ -73,10 +74,9 @@
 				<option value="individual">Individual</option>
 			</select>
 		}
+		<br />
 	}
 
-
-	<br />
 	@if (panelType == "text")
 	{
 		<label>Input the panel's text</label>
@@ -171,8 +171,6 @@
 		<button class="btn btn-primary" @onclick="AddEndPanel">Add panel to Chapter</button>
 		<br />
 	}
-
-
 </div>
 
 @foreach (var panel in panels)
@@ -327,4 +325,5 @@
 	}
 }
 
-<button>Create Script Json</button>
+<input type="text" placeholder="Script Name" @bind="fileName"/>
+<button class="btn btn-primary" @onclick="CreateScript">Create Script Json</button>
