@@ -1,0 +1,330 @@
+﻿@page "/"
+@inherits IndexBase;
+
+<PageTitle>Build your Otome Game Chapters here.</PageTitle>
+<b>Build your Otome Game Chapters here.</b>
+
+<br />
+<div>
+	Panel Number: @currentPanel
+	<br />
+	<label>Choose the type of panel you want to add:</label>
+	<select @bind="panelType">
+		<option value="text">Text</option>
+		<option value="choice">Choice</option>
+		<option value="end">End</option>
+	</select>
+	<br />
+
+	<label>Choose the number of characters in this Panel</label>
+	<select @bind="characterNumber">
+		<option value="0">0</option>
+		<option value="1">1</option>
+		<option value="2">2</option>
+	</select>
+	<br />
+	@if (characterNumber >= 1)
+	{
+		<label>Character</label>
+		<select @bind="currentCharacter">
+			<option value="necromancer">Necromancer</option>
+			<option value="vampire">Vampire</option>
+			<option value="darkWizard">Dark Wizard</option>
+			<option value="demonHunter">Demon Hunter</option>
+			<option value="demon">Demon</option>
+			<option value="peasant">Peasant</option>
+			<option value="priest">Priest</option>
+			<option value="guide">Guide</option>
+		</select>
+		<label>Expression</label>
+		<select @bind="currentExpression">
+			<option value="neutral">Neutral</option>
+			<option value="happy">Happy</option>
+			<option value="sad">Sad</option>
+			<option value="angry">Angry</option>
+			<option value="surprised">Surprised</option>
+			<option value="blush">Blush</option>
+			<option value="smirk">Smirk</option>
+			<option value="individual">Individual</option>
+		</select>
+		@if (characterNumber == 2)
+		{
+			<label>Character</label>
+			<select @bind="currentSecondCharacter">
+				<option value="necromancer">Necromancer</option>
+				<option value="vampire">Vampire</option>
+				<option value="darkWizard">Dark Wizard</option>
+				<option value="demonHunter">Demon Hunter</option>
+				<option value="demon">Demon</option>
+				<option value="peasant">Peasant</option>
+				<option value="priest">Priest</option>
+				<option value="guide">Guide</option>
+			</select>
+			<br />
+			<label>Expression</label>
+			<select @bind="currentSecondExpression">
+				<option value="neutral">Neutral</option>
+				<option value="happy">Happy</option>
+				<option value="sad">Sad</option>
+				<option value="angry">Angry</option>
+				<option value="surprised">Surprised</option>
+				<option value="blush">Blush</option>
+				<option value="smirk">Smirk</option>
+				<option value="individual">Individual</option>
+			</select>
+		}
+	}
+
+
+	<br />
+	@if (panelType == "text")
+	{
+		<label>Input the panel's text</label>
+		<input type="text" placeholder="Text" style="width: 1000px" @bind="currentMainText">
+		<br />
+		<label>Input the next panel</label>
+		<input type="number" style="width:50px" @bind="currentNextPanel">
+		<br />
+		<button class="btn btn-primary" @onclick="AddTextPanel">Add panel to Chapter</button>
+		<br />
+	}
+	@if (panelType == "choice")
+	{
+		<label>Input the panel's main text</label>
+		<input type="text" placeholder="Text" style="width: 1000px" @bind="currentMainText">
+		<br />
+		<div>
+			<label>Input the first choice</label>
+			<br />
+			<label>Text</label>
+			<input type="text" placeholder="Text" style="width: 800px" @bind="choiceTexts[0]">
+			<label>Next Panel</label>
+			<input type="number" style="width:50px" @bind="choiceNextPanels[0]">
+			<label>Affected Character</label>
+			<select @bind="choicePersons[0]">
+				<option value="necromancer">Necromancer</option>
+				<option value="vampire">Vampire</option>
+				<option value="darkWizard">Dark Wizard</option>
+				<option value="demonHunter">Demon Hunter</option>
+				<option value="demon">Demon</option>
+				<option value="peasant">Peasant</option>
+				<option value="priest">Priest</option>
+				<option value="guide">Guide</option>
+			</select>
+			<label>Points</label>
+			<input type="number" style="width:50px" @bind="choicePoints[0]">
+		</div>
+		<div>
+			<label>Input the second choice</label>
+			<br />
+			<label>Text</label>
+			<input type="text" placeholder="Text" style="width: 800px" @bind="choiceTexts[1]">
+			<label>Next Panel</label>
+			<input type="number" style="width:50px" @bind="choiceNextPanels[1]">
+			<label>Affected Character</label>
+			<select @bind="choicePersons[1]">
+				<option value="necromancer">Necromancer</option>
+				<option value="vampire">Vampire</option>
+				<option value="darkWizard">Dark Wizard</option>
+				<option value="demonHunter">Demon Hunter</option>
+				<option value="demon">Demon</option>
+				<option value="peasant">Peasant</option>
+				<option value="priest">Priest</option>
+				<option value="guide">Guide</option>
+			</select>
+			<label>Points</label>
+			<input type="number" style="width:50px" @bind="choicePoints[1]">
+		</div>
+		<div>
+			<label>Input the third choice</label>
+			<br />
+			<label>Text</label>
+			<input type="text" placeholder="Text" style="width: 800px" @bind="choiceTexts[2]">
+			<label>Next Panel</label>
+			<input type="number" style="width:50px" @bind="choiceNextPanels[2]">
+			<label>Affected Character</label>
+			<select @bind="choicePersons[2]">
+				<option value="necromancer">Necromancer</option>
+				<option value="vampire">Vampire</option>
+				<option value="darkWizard">Dark Wizard</option>
+				<option value="demonHunter">Demon Hunter</option>
+				<option value="demon">Demon</option>
+				<option value="peasant">Peasant</option>
+				<option value="priest">Priest</option>
+				<option value="guide">Guide</option>
+			</select>
+			<label>Points</label>
+			<input type="number" style="width:50px" @bind="choicePoints[2]">
+		</div>
+		<br />
+		<button class="btn btn-primary" @onclick="AddChoicePanel">Add panel to Chapter</button>
+		<br />
+	}
+	@if (panelType == "end")
+	{
+		<label>Input the panel's text</label>
+		<input type="text" placeholder="Text" style="width: 1000px" @bind="currentMainText">
+		<br />
+		<label>Input the next chapter</label>
+		<input type="text" style="width:500px" @bind="currentNextChapter">
+		<br />
+		<button class="btn btn-primary" @onclick="AddEndPanel">Add panel to Chapter</button>
+		<br />
+	}
+
+
+</div>
+
+@foreach (var panel in panels)
+{
+	<b>Panel Number: @panel.panelNumber</b>
+	<br />
+	<div>
+		<label>Number of characters</label>
+		<select @bind="panel.characterNumber">
+			<option value="0">0</option>
+			<option value="1">1</option>
+			<option value="2">2</option>
+		</select>
+		<br>
+		@if (panel.characterNumber >= 1)
+		{
+			<label>Character</label>
+			<select @bind="panel.character">
+				<option value="necromancer">Necromancer</option>
+				<option value="vampire">Vampire</option>
+				<option value="darkWizard">Dark Wizard</option>
+				<option value="demonHunter">Demon Hunter</option>
+				<option value="demon">Demon</option>
+				<option value="peasant">Peasant</option>
+				<option value="priest">Priest</option>
+				<option value="guide">Guide</option>
+			</select>
+			<label>Expression</label>
+			<select @bind="panel.expression">
+				<option value="neutral">Neutral</option>
+				<option value="happy">Happy</option>
+				<option value="sad">Sad</option>
+				<option value="angry">Angry</option>
+				<option value="surprised">Surprised</option>
+				<option value="blush">Blush</option>
+				<option value="smirk">Smirk</option>
+				<option value="individual">Individual</option>
+			</select>
+			@if (panel.characterNumber == 2)
+			{
+				<br />
+				<label>Character</label>
+				<select @bind="panel.secondCharacter">
+					<option value="necromancer">Necromancer</option>
+					<option value="vampire">Vampire</option>
+					<option value="darkWizard">Dark Wizard</option>
+					<option value="demonHunter">Demon Hunter</option>
+					<option value="demon">Demon</option>
+					<option value="peasant">Peasant</option>
+					<option value="priest">Priest</option>
+					<option value="guide">Guide</option>
+				</select>
+				<label>Expression</label>
+				<select @bind="panel.secondExpression">
+					<option value="neutral">Neutral</option>
+					<option value="happy">Happy</option>
+					<option value="sad">Sad</option>
+					<option value="angry">Angry</option>
+					<option value="surprised">Surprised</option>
+					<option value="blush">Blush</option>
+					<option value="smirk">Smirk</option>
+					<option value="individual">Individual</option>
+				</select>
+			}
+		}
+	</div>
+
+	
+	@if (panel.GetType() == typeof(TextPanel))
+	{
+		TextPanel existingPanel = (TextPanel)panel;
+		<br />
+		<label>Text:</label>
+		<input type="text" placeholder="Text" style="width: 1000px" @bind="existingPanel.mainText">
+		<br />
+		<label>Next panel:</label>
+		<input type="number" style="width: 50px" @bind="existingPanel.nextPanel">
+		<br />
+	}
+	@if (panel.GetType() == typeof(ChoicePanel))
+	{
+		ChoicePanel existingPanel = (ChoicePanel)panel;
+		<input type="text" placeholder="Text" style="width: 1000px" @bind="existingPanel.mainText">
+		<br />
+		<div>
+			<label>Text</label>
+			<input type="text" placeholder="Text" style="width: 800px" @bind="existingPanel.choiceText1">
+			<label>Next Panel</label>
+			<input type="number" style="width:50px" @bind="existingPanel.choice1NextPanel">
+			<label>Affected Character</label>
+			<select @bind="existingPanel.choice1AffectedPerson">
+				<option value="necromancer">Necromancer</option>
+				<option value="vampire">Vampire</option>
+				<option value="darkWizard">Dark Wizard</option>
+				<option value="demonHunter">Demon Hunter</option>
+				<option value="demon">Demon</option>
+				<option value="peasant">Peasant</option>
+				<option value="priest">Priest</option>
+				<option value="guide">Guide</option>
+			</select>
+			<label>Points</label>
+			<input type="number" style="width:50px" @bind="existingPanel.choice1Points">
+		</div>
+		<div>
+			<label>Text</label>
+			<input type="text" placeholder="Text" style="width: 800px" @bind="existingPanel.choiceText2">
+			<label>Next Panel</label>
+			<input type="number" style="width:50px" @bind="existingPanel.choice2NextPanel">
+			<label>Affected Character</label>
+			<select @bind="existingPanel.choice2AffectedPerson">
+				<option value="necromancer">Necromancer</option>
+				<option value="vampire">Vampire</option>
+				<option value="darkWizard">Dark Wizard</option>
+				<option value="demonHunter">Demon Hunter</option>
+				<option value="demon">Demon</option>
+				<option value="peasant">Peasant</option>
+				<option value="priest">Priest</option>
+				<option value="guide">Guide</option>
+			</select>
+			<label>Points</label>
+			<input type="number" style="width:50px" @bind="existingPanel.choice2Points">
+		</div>
+		<div>
+			<label>Text</label>
+			<input type="text" placeholder="Text" style="width: 800px" @bind="existingPanel.choiceText3">
+			<label>Next Panel</label>
+			<input type="number" style="width:50px" @bind="existingPanel.choice3NextPanel">
+			<label>Affected Character</label>
+			<select @bind="existingPanel.choice3AffectedPerson">
+				<option value="necromancer">Necromancer</option>
+				<option value="vampire">Vampire</option>
+				<option value="darkWizard">Dark Wizard</option>
+				<option value="demonHunter">Demon Hunter</option>
+				<option value="demon">Demon</option>
+				<option value="peasant">Peasant</option>
+				<option value="priest">Priest</option>
+				<option value="guide">Guide</option>
+			</select>
+			<label>Points</label>
+			<input type="number" style="width:50px" @bind="existingPanel.choice3Points">
+		</div>
+	}
+	@if (panel.GetType() == typeof(EndPanel))
+	{
+		EndPanel existingPanel = (EndPanel)panel;
+		<label>Text:</label>
+		<input type="text" placeholder="Text" style="width: 1000px" @bind="existingPanel.mainText">
+		<br />
+		<label>Next chapter:</label>
+		<input type="text" style="width:500px" @bind="existingPanel.nextChapter">
+		<br />
+	}
+}
+
+<button>Create Script Json</button>
