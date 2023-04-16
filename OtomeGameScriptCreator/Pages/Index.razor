@@ -50,6 +50,7 @@
 		</select>
 		@if (characterNumber == 2)
 		{
+			<br />
 			<label>Character</label>
 			<select @bind="currentSecondCharacter">
 				<option value="necromancer">Necromancer</option>
@@ -61,7 +62,6 @@
 				<option value="priest">Priest</option>
 				<option value="guide">Guide</option>
 			</select>
-			<br />
 			<label>Expression</label>
 			<select @bind="currentSecondExpression">
 				<option value="neutral">Neutral</option>
