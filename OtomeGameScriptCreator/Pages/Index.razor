@@ -1,6 +1,9 @@
 ﻿@page "/"
-@using System.Text.Json;
 @using Newtonsoft.Json;
+@using OtomeGameScriptCreator.Panels;
+@	using System.Text.Json;
+@	using Newtonsoft.Json;
+	using OtomeGameScriptCreator.Panels;
 @inherits IndexBase;
 @inject IJSRuntime JSRuntime
 
@@ -337,13 +340,9 @@
 <button class="btn btn-primary" @onclick="CreateScript">Create Script Json</button>
 @code 
 {
-    public async void CreateScript()
-    {
-   //     var options = new JsonSerializerOptions()
-			//{
-			//	IncludeFields = true,
-			//	WriteIndented = true,
-			//};
+	public async void CreateScript()
+	{
+
 		string serializedJson = JsonConvert.SerializeObject(panels, Formatting.Indented, new JsonSerializerSettings
 			{
 				TypeNameHandling = TypeNameHandling.Objects,
