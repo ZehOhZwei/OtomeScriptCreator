@@ -1,5 +1,11 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.JSInterop;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Linq;
+using System.Dynamic;
+using System.Text;
 using System.Text.Json;
 using static System.Net.Mime.MediaTypeNames;
 
@@ -39,9 +45,9 @@ namespace OtomeGameScriptCreator.Pages
 								currentSecondExpression);
 			newPanel.panelNumber = currentPanel;
 			currentPanel++;
-			currentNextPanel = currentPanel + 1;
 			panels.Add(newPanel);
-
+			currentNextPanel = currentPanel + 1;
+			currentMainText = "";
 		}
 
 		public void AddChoicePanel()
@@ -66,8 +72,9 @@ namespace OtomeGameScriptCreator.Pages
 								  choicePoints[2]);
 			newPanel.panelNumber = currentPanel;
 			currentPanel++;
-			currentNextPanel = currentPanel + 1;
 			panels.Add(newPanel);
+			currentMainText = "";
+			currentNextPanel = currentPanel + 1;
 		}
 
 		public void AddEndPanel()
@@ -81,21 +88,41 @@ namespace OtomeGameScriptCreator.Pages
 							   currentSecondExpression);
 			newPanel.panelNumber = currentPanel;
 			currentPanel++;
-			currentNextPanel = currentPanel + 1;
 			panels.Add(newPanel);
+			currentMainText = "";
+			currentNextPanel = currentPanel + 1;
 		}
-    }
+
+		public async void LoadFiles(InputFileChangeEventArgs e)
+		{
+			var stream = e.File.OpenReadStream();
+			var result = new byte[stream.Length];
+			await stream.ReadAsync(result, 0, (int)stream.Length);
+			var text = System.Text.Encoding.ASCII.GetString(result);
+            panels = JsonConvert.DeserializeObject<List<Panel>>(text, new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.Objects
+            });
+			currentPanel = panels.Count;
+			currentNextPanel = panels.Count + 1;
+			await InvokeAsync(() =>
+			{
+				StateHasChanged();
+			});
+		}
+	}
     
-    public abstract class Panel 
+    public class Panel 
 	{
-		public int panelNumber;
-		public string? mainText;
-		public int nextPanel;
-		public int characterNumber;
-		public string character;
-		public string secondCharacter;
-		public string expression;
-		public string secondExpression;
+		public int panelNumber { get; set; }
+		public string? mainText { get; set; }
+		public int nextPanel { get; set; }
+		public int characterNumber { get; set; }
+		public string character { get; set; }
+		public string secondCharacter { get; set; }
+		public string expression { get; set; }
+		public string secondExpression { get; set; }
+		public string type { get; set; }
 	}
 
     public class TextPanel : Panel
@@ -116,6 +143,7 @@ namespace OtomeGameScriptCreator.Pages
 			this.secondCharacter = secondCharacter;
 			this.expression = expression;
 			this.secondExpression = secondExpression;
+			this.type = "text";
 		}
 	}
 
@@ -171,6 +199,7 @@ namespace OtomeGameScriptCreator.Pages
 			this.choice3NextPanel = choice3NextPanel;
 			this.choice3AffectedPerson = choice3AffectedPerson;
 			this.choice3Points = choice3Points;
+			this.type = "choice";
 		}
 	}
 
@@ -193,6 +222,7 @@ namespace OtomeGameScriptCreator.Pages
 			this.expression = expression;
 			this.secondExpression = secondExpression; 
 			this.nextChapter = nextFile;
+			this.type = "end";
 		}
 	}
 }
