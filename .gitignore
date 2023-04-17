@@ -361,3 +361,6 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/OtomeGameScriptCreator.sln
+/OtomeGameScriptCreator/OtomeGameScriptCreator.csproj
+/OtomeGameScriptCreator/Pages/IndexBase.cs
