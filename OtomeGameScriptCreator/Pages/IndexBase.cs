@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using System.Text.Json;
+using static System.Net.Mime.MediaTypeNames;
+
 namespace OtomeGameScriptCreator.Pages
 {
     public class IndexBase: ComponentBase
@@ -15,7 +17,7 @@ namespace OtomeGameScriptCreator.Pages
 
 		public string currentMainText = "";
 		public int currentNextPanel = 1;
-		public string? currentNextChapter;
+		public string? currentNextChapter = "default";
 		public int currentPanel = 0;
 		public string[] choiceTexts = new string[3];
 		public string[] choicePersons = new string[3];
@@ -28,7 +30,13 @@ namespace OtomeGameScriptCreator.Pages
 
 		public void AddTextPanel()
 		{
-			var newPanel = new TextPanel(currentMainText, currentNextPanel);
+			var newPanel = new TextPanel(currentMainText,
+								currentNextPanel,
+								characterNumber,
+								currentCharacter,
+								currentSecondCharacter,
+								currentExpression,
+								currentSecondExpression);
 			newPanel.panelNumber = currentPanel;
 			currentPanel++;
 			currentNextPanel = currentPanel + 1;
@@ -38,7 +46,24 @@ namespace OtomeGameScriptCreator.Pages
 
 		public void AddChoicePanel()
 		{
-			var newPanel = new ChoicePanel(currentMainText, choiceTexts[0], choiceNextPanels[0], choicePersons[0], choicePoints[0], choiceTexts[1], choiceNextPanels[1], choicePersons[1], choicePoints[1], choiceTexts[2], choiceNextPanels[2], choicePersons[2], choicePoints[2]);
+			var newPanel = new ChoicePanel(currentMainText,
+								  characterNumber,
+								  currentCharacter,
+								  currentSecondCharacter,
+								  currentExpression,
+								  currentSecondExpression,
+								  choiceTexts[0],
+								  choiceNextPanels[0],
+								  choicePersons[0],
+								  choicePoints[0],
+								  choiceTexts[1],
+								  choiceNextPanels[1],
+								  choicePersons[1],
+								  choicePoints[1],
+								  choiceTexts[2],
+								  choiceNextPanels[2],
+								  choicePersons[2],
+								  choicePoints[2]);
 			newPanel.panelNumber = currentPanel;
 			currentPanel++;
 			currentNextPanel = currentPanel + 1;
@@ -47,7 +72,13 @@ namespace OtomeGameScriptCreator.Pages
 
 		public void AddEndPanel()
 		{
-			var newPanel = new EndPanel(currentMainText, currentNextChapter);
+			var newPanel = new EndPanel(currentMainText,
+							   currentNextChapter,
+							   characterNumber,
+							   currentCharacter,
+							   currentSecondCharacter,
+							   currentExpression,
+							   currentSecondExpression);
 			newPanel.panelNumber = currentPanel;
 			currentPanel++;
 			currentNextPanel = currentPanel + 1;
@@ -69,10 +100,22 @@ namespace OtomeGameScriptCreator.Pages
 
     public class TextPanel : Panel
     {
-		public TextPanel(string text, int nextPanel)
+
+		public TextPanel(string text,
+				   int nextPanel,
+				   int characterNumber,
+				   string character,
+				   string secondCharacter,
+				   string expression,
+				   string secondExpression)
 		{
 			this.mainText = text;
 			this.nextPanel = nextPanel;
+			this.characterNumber = characterNumber;
+			this.character = character;
+			this.secondCharacter = secondCharacter;
+			this.expression = expression;
+			this.secondExpression = secondExpression;
 		}
 	}
 
@@ -92,6 +135,11 @@ namespace OtomeGameScriptCreator.Pages
 		public int choice3Points;
 
 		public ChoicePanel(string mainText,
+					 int characterNumber,
+					 string character,
+					 string secondCharacter,
+					 string expression,
+					 string secondExpression,
 					 string choiceText1,
 					 int choice1NextPanel,
 					 string choice1AffectedPerson,
@@ -106,6 +154,11 @@ namespace OtomeGameScriptCreator.Pages
 					 int choice3Points)
 		{
 			this.mainText = mainText;
+			this.characterNumber = characterNumber;
+			this.character = character;
+			this.secondCharacter = secondCharacter;
+			this.expression = expression;
+			this.secondExpression = secondExpression;
 			this.choiceText1 = choiceText1;
 			this.choice1NextPanel = choice1NextPanel;
 			this.choice1AffectedPerson = choice1AffectedPerson;
@@ -125,9 +178,20 @@ namespace OtomeGameScriptCreator.Pages
 	{
 		public string nextChapter;
 
-		public EndPanel(string text, string nextFile)
+		public EndPanel(string text,
+				  string nextFile,
+				  int characterNumber,
+				  string character,
+				  string secondCharacter,
+				  string expression,
+				  string secondExpression)
 		{
 			this.mainText = text;
+			this.characterNumber = characterNumber;
+			this.character = character;
+			this.secondCharacter = secondCharacter;
+			this.expression = expression;
+			this.secondExpression = secondExpression; 
 			this.nextChapter = nextFile;
 		}
 	}

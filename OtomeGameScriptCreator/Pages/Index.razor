@@ -1,5 +1,5 @@
 ﻿@page "/"
-@using System.Text.Json;
+@using Newtonsoft.Json;
 @inherits IndexBase;
 @inject IJSRuntime JSRuntime
 
@@ -337,7 +337,7 @@
 
 	public async void CreateScript()
 	{
-		var jsonString = JsonSerializer.Serialize(panels);
-		await JSRuntime.InvokeAsync<object>("saveFile", fileName, jsonString);
+		var jsonString = JsonConvert.SerializeObject(panels);
+		await JSRuntime.InvokeAsync<object>("saveFile", fileName + ".json", jsonString);
 	}
 }
