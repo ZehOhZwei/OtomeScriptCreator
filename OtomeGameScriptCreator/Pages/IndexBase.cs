@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 using System.Text.Json;
 namespace OtomeGameScriptCreator.Pages
 {
@@ -13,7 +14,7 @@ namespace OtomeGameScriptCreator.Pages
 		public string currentSecondExpression = "neutral";
 
 		public string currentMainText = "";
-		public int currentNextPanel;
+		public int currentNextPanel = 1;
 		public string? currentNextChapter;
 		public int currentPanel = 0;
 		public string[] choiceTexts = new string[3];
@@ -30,6 +31,7 @@ namespace OtomeGameScriptCreator.Pages
 			var newPanel = new TextPanel(currentMainText, currentNextPanel);
 			newPanel.panelNumber = currentPanel;
 			currentPanel++;
+			currentNextPanel = currentPanel + 1;
 			panels.Add(newPanel);
 
 		}
@@ -39,6 +41,7 @@ namespace OtomeGameScriptCreator.Pages
 			var newPanel = new ChoicePanel(currentMainText, choiceTexts[0], choiceNextPanels[0], choicePersons[0], choicePoints[0], choiceTexts[1], choiceNextPanels[1], choicePersons[1], choicePoints[1], choiceTexts[2], choiceNextPanels[2], choicePersons[2], choicePoints[2]);
 			newPanel.panelNumber = currentPanel;
 			currentPanel++;
+			currentNextPanel = currentPanel + 1;
 			panels.Add(newPanel);
 		}
 
@@ -47,15 +50,8 @@ namespace OtomeGameScriptCreator.Pages
 			var newPanel = new EndPanel(currentMainText, currentNextChapter);
 			newPanel.panelNumber = currentPanel;
 			currentPanel++;
+			currentNextPanel = currentPanel + 1;
 			panels.Add(newPanel);
-		}
-
-		public void CreateScript()
-		{
-			var jsonString = JsonSerializer.Serialize(panels);
-			string path = @"C:\MyTest.txt";
-			File.WriteAllText(path, jsonString);
-
 		}
     }
     

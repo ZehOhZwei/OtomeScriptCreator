@@ -1,5 +1,8 @@
 ﻿@page "/"
+@using System.Text.Json;
 @inherits IndexBase;
+@inject IJSRuntime JSRuntime
+
 
 <PageTitle>Build your Otome Game Chapters here.</PageTitle>
 <b>Build your Otome Game Chapters here.</b>
@@ -50,6 +53,7 @@
 		</select>
 		@if (characterNumber == 2)
 		{
+			<br />
 			<label>Character</label>
 			<select @bind="currentSecondCharacter">
 				<option value="necromancer">Necromancer</option>
@@ -61,7 +65,6 @@
 				<option value="priest">Priest</option>
 				<option value="guide">Guide</option>
 			</select>
-			<br />
 			<label>Expression</label>
 			<select @bind="currentSecondExpression">
 				<option value="neutral">Neutral</option>
@@ -171,6 +174,7 @@
 		<button class="btn btn-primary" @onclick="AddEndPanel">Add panel to Chapter</button>
 		<br />
 	}
+	<hr />
 </div>
 
 @foreach (var panel in panels)
@@ -323,7 +327,17 @@
 		<input type="text" style="width:500px" @bind="existingPanel.nextChapter">
 		<br />
 	}
+	<hr />
 }
 
 <input type="text" placeholder="Script Name" @bind="fileName"/>
 <button class="btn btn-primary" @onclick="CreateScript">Create Script Json</button>
+@code 
+{
+
+	public async void CreateScript()
+	{
+		var jsonString = JsonSerializer.Serialize(panels);
+		await JSRuntime.InvokeAsync<object>("saveFile", fileName, jsonString);
+	}
+}
