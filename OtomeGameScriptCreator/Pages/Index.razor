@@ -1,9 +1,15 @@
 ﻿@page "/"
+@using System.Text.Json;
+@using Newtonsoft.Json;
 @inherits IndexBase;
+@inject IJSRuntime JSRuntime
+
 
 <PageTitle>Build your Otome Game Chapters here.</PageTitle>
 <b>Build your Otome Game Chapters here.</b>
 
+<br />
+<InputFile OnChange="@LoadFiles"/>
 <br />
 <div>
 	Panel Number: @currentPanel
@@ -171,6 +177,7 @@
 		<button class="btn btn-primary" @onclick="AddEndPanel">Add panel to Chapter</button>
 		<br />
 	}
+	<hr />
 </div>
 
 @foreach (var panel in panels)
@@ -250,7 +257,7 @@
 		<input type="number" style="width: 50px" @bind="existingPanel.nextPanel">
 		<br />
 	}
-	@if (panel.GetType() == typeof(ChoicePanel))
+	@if (panel.type == "choice")
 	{
 		ChoicePanel existingPanel = (ChoicePanel)panel;
 		<input type="text" placeholder="Text" style="width: 1000px" @bind="existingPanel.mainText">
@@ -313,7 +320,7 @@
 			<input type="number" style="width:50px" @bind="existingPanel.choice3Points">
 		</div>
 	}
-	@if (panel.GetType() == typeof(EndPanel))
+	@if (panel.type == "end")
 	{
 		EndPanel existingPanel = (EndPanel)panel;
 		<label>Text:</label>
@@ -323,7 +330,25 @@
 		<input type="text" style="width:500px" @bind="existingPanel.nextChapter">
 		<br />
 	}
+	<hr />
 }
 
 <input type="text" placeholder="Script Name" @bind="fileName"/>
 <button class="btn btn-primary" @onclick="CreateScript">Create Script Json</button>
+@code 
+{
+    public async void CreateScript()
+    {
+   //     var options = new JsonSerializerOptions()
+			//{
+			//	IncludeFields = true,
+			//	WriteIndented = true,
+			//};
+		string serializedJson = JsonConvert.SerializeObject(panels, Formatting.Indented, new JsonSerializerSettings
+			{
+				TypeNameHandling = TypeNameHandling.Objects,
+				TypeNameAssemblyFormat = System.Runtime.Serialization.Formatters.FormatterAssemblyStyle.Simple
+			});
+        await JSRuntime.InvokeAsync<object>("saveFile", fileName, serializedJson);
+	}
+}

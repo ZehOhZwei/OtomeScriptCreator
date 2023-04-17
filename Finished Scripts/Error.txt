@@ -1,0 +1,14 @@
+[
+  {
+    "$type": "OtomeGameScriptCreator.Pages.TextPanel, OtomeGameScriptCreator",
+    "panelNumber": 0,
+    "mainText": "Wait... You're not supposed to be here!",
+    "nextPanel": 0,
+    "characterNumber": 1,
+    "character": "guide",
+    "secondCharacter": "necromancer",
+    "expression": "surprised",
+    "secondExpression": "neutral",
+    "type": "text"
+  }
+]
