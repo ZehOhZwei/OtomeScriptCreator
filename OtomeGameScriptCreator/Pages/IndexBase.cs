@@ -22,6 +22,8 @@ namespace OtomeGameScriptCreator.Pages
 		public string currentExpression = "neutral";
 		public string currentSecondExpression = "neutral";
 
+		public string currentBackground = "countryside";
+
 		public string currentMainText = "";
 		public int currentNextPanel = 1;
 		public string? currentNextChapter = "default";
@@ -43,7 +45,8 @@ namespace OtomeGameScriptCreator.Pages
 								currentCharacter,
 								currentSecondCharacter,
 								currentExpression,
-								currentSecondExpression);
+								currentSecondExpression,
+                                currentBackground);
 			newPanel.panelNumber = currentPanel;
 			currentPanel++;
 			panels.Add(newPanel);
@@ -59,7 +62,8 @@ namespace OtomeGameScriptCreator.Pages
 								  currentSecondCharacter,
 								  currentExpression,
 								  currentSecondExpression,
-								  choiceTexts[0],
+                                  currentBackground,
+                                  choiceTexts[0],
 								  choiceNextPanels[0],
 								  choicePersons[0],
 								  choicePoints[0],
@@ -86,7 +90,8 @@ namespace OtomeGameScriptCreator.Pages
 							   currentCharacter,
 							   currentSecondCharacter,
 							   currentExpression,
-							   currentSecondExpression);
+							   currentSecondExpression,
+							   currentBackground);
 			newPanel.panelNumber = currentPanel;
 			currentPanel++;
 			panels.Add(newPanel);

@@ -10,7 +10,8 @@
                   string character,
                   string secondCharacter,
                   string expression,
-                  string secondExpression)
+                  string secondExpression,
+                  string background)
         {
             mainText = text;
             this.characterNumber = characterNumber;
@@ -18,6 +19,7 @@
             this.secondCharacter = secondCharacter;
             this.expression = expression;
             this.secondExpression = secondExpression;
+            this.background = background;
             nextChapter = nextFile;
             type = "end";
         }

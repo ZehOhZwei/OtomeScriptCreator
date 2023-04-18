@@ -10,6 +10,7 @@
         public string secondCharacter { get; set; }
         public string expression { get; set; }
         public string secondExpression { get; set; }
+        public string background { get; set; }
         public string type { get; set; }
     }
 }

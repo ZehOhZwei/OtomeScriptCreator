@@ -21,6 +21,7 @@
                      string secondCharacter,
                      string expression,
                      string secondExpression,
+                     string background,
                      string choiceText1,
                      int choice1NextPanel,
                      string choice1AffectedPerson,
@@ -40,6 +41,7 @@
             this.secondCharacter = secondCharacter;
             this.expression = expression;
             this.secondExpression = secondExpression;
+            this.background = background;
             this.choiceText1 = choiceText1;
             this.choice1NextPanel = choice1NextPanel;
             this.choice1AffectedPerson = choice1AffectedPerson;
