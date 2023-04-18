@@ -1,0 +1,28 @@
+[
+  {
+    "$type": "OtomeGameScriptCreator.Panels.TextPanel, OtomeGameScriptCreator",
+    "panelNumber": 0,
+    "mainText": "I wuv u Necomanse",
+    "nextPanel": 1,
+    "characterNumber": 2,
+    "character": "darkWizard",
+    "secondCharacter": "necromancer",
+    "expression": "blush",
+    "secondExpression": "blush",
+    "background": "countryside",
+    "type": "text"
+  },
+  {
+    "$type": "OtomeGameScriptCreator.Panels.TextPanel, OtomeGameScriptCreator",
+    "panelNumber": 1,
+    "mainText": "I wuv u tu Dahk Wizahd",
+    "nextPanel": 0,
+    "characterNumber": 2,
+    "character": "darkWizard",
+    "secondCharacter": "necromancer",
+    "expression": "blush",
+    "secondExpression": "blush",
+    "background": "countryside",
+    "type": "text"
+  }
+]
