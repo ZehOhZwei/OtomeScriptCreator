@@ -101,13 +101,13 @@ namespace OtomeGameScriptCreator.Pages
 			await stream.ReadAsync(result, 0, (int)stream.Length);
 			var text = System.Text.Encoding.ASCII.GetString(result);
             panels = JsonConvert.DeserializeObject<List<Panel>>(text, new JsonSerializerSettings
-            {
+	{
                 TypeNameHandling = TypeNameHandling.Objects
             });
 			currentPanel = panels.Count;
 			currentNextPanel = panels.Count + 1;
 			await InvokeAsync(() =>
-			{
+		{
 				StateHasChanged();
 			});
 		}
