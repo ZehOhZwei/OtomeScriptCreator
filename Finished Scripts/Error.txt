@@ -104,7 +104,7 @@
   },
   {
     "$type": "OtomeGameScriptCreator.Panels.EndPanel, OtomeGameScriptCreator",
-    "nextChapter": "filler",
+    "nextChapter": "Filler",
     "panelNumber": 7,
     "mainText": "So no we are going to play some filler!",
     "nextPanel": 0,

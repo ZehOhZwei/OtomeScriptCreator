@@ -28,8 +28,8 @@ namespace OtomeGameScriptCreator.Pages
 		public int currentNextPanel = 1;
 		public string? currentNextChapter = "default";
 		public int currentPanel = 0;
-		public string[] choiceTexts = new string[3];
-		public string[] choicePersons = new string[3];
+		public string[] choiceTexts = { "", "", "" } ;
+		public string[] choicePersons = { "necromancer", "necromancer", "necromancer" };
 		public int[] choiceNextPanels = new int[3];
 		public int[] choicePoints = new int[3];
 
