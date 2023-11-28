@@ -2,8 +2,6 @@
 @using Newtonsoft.Json;
 @using OtomeGameScriptCreator.Panels;
 @using System.Text.Json;
-@using Newtonsoft.Json;
-@using OtomeGameScriptCreator.Panels;
 @inherits IndexBase;
 @inject IJSRuntime JSRuntime
 
@@ -384,7 +382,7 @@
         string serializedJson = JsonConvert.SerializeObject(panels, Formatting.Indented, new JsonSerializerSettings
             {
                 TypeNameHandling = TypeNameHandling.Objects,
-                TypeNameAssemblyFormat = System.Runtime.Serialization.Formatters.FormatterAssemblyStyle.Simple
+                TypeNameAssemblyFormatHandling = TypeNameAssemblyFormatHandling.Simple
             });
         await JSRuntime.InvokeAsync<object>("saveFile", fileName, serializedJson);
     }
